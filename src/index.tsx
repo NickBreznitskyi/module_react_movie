@@ -9,10 +9,11 @@ import "slick-carousel/slick/slick-theme.css";
 import {App} from './App';
 import {setupStore} from "./store";
 
-import './index.css';
-//import "./resources/themes/antd/components/antd.less"
-//import  "./resources/themes/antd/components/antd.css"
 
+import "./resources/themes/antd/antd.less"
+import "./resources/themes/antd/antd.scss"
+
+import './index.css';
 
 const store = setupStore();
 document.documentElement.setAttribute('data-theme', 'light')

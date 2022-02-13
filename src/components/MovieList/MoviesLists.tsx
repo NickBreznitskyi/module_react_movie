@@ -1,5 +1,6 @@
 import React, {useEffect, useMemo} from 'react';
 import {Pagination} from "antd";
+import styled from "styled-components";
 
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import {MovieCard} from "../MovieCard";
@@ -9,7 +10,7 @@ import {
     setUpcomingMoviesListThunk
 } from "../../store";
 import {MovieTypeEnum} from "../../enums";
-import styled from "styled-components";
+
 
 interface IProps {
     option: string
@@ -53,7 +54,7 @@ const MoviesLists = ({option}: IProps) => {
                 return (
                     <CustomMovieList>
                         <div className={"movieList"}>
-                            {popularMoviesList?.results.map(value => <MovieCard movie={value}/>)}
+                            {popularMoviesList?.results.map(value => <MovieCard key={value.title} movie={value}/>)}
                         </div>
                         <div className={"pagination"}>
                             <Pagination total={popularMoviesList?.total_results} showSizeChanger={false}
@@ -70,7 +71,7 @@ const MoviesLists = ({option}: IProps) => {
                 return (
                     <CustomMovieList>
                         <div className={"movieList"}>
-                            {topRatedMoviesList?.results.map(value => <MovieCard movie={value}/>)}
+                            {topRatedMoviesList?.results.map(value => <MovieCard key={value.title} movie={value}/>)}
                         </div>
                         <div className={"pagination"}>
                             <Pagination total={topRatedMoviesList?.total_results} showSizeChanger={false}
@@ -87,7 +88,7 @@ const MoviesLists = ({option}: IProps) => {
                 return (
                     <CustomMovieList>
                         <div className={"movieList"}>
-                            {upcomingMoviesList?.results.map(value => <MovieCard movie={value}/>)}
+                            {upcomingMoviesList?.results.map(value => <MovieCard key={value.title} movie={value}/>)}
                         </div>
                         <div className={"pagination"}>
                             <Pagination total={upcomingMoviesList?.total_results} showSizeChanger={false}
@@ -113,7 +114,7 @@ const CustomMovieList = styled.div`
     gap: 60px;
     justify-content: center;
   }
-  
+
   .pagination {
     display: flex;
     margin-top: 30px;

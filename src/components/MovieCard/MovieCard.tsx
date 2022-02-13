@@ -6,10 +6,11 @@ import styled from "styled-components";
 import {urls} from "../../constants";
 import {IMovie} from "../../interfaces";
 import {useAppSelector} from "../../hooks";
-import {GenreBadge} from "../GenreBadge/GenreBadge";
+import { GenreBadge } from '../GenreBadge/GenreBadge';
+import {genresFilter} from '../../helpers';
+
 // @ts-ignore
 import imdbIcon from "../../resources/images/imdbIcon.png";
-import { genresFilter } from '../../helpers/genresFilter';
 
 const {Meta} = Card;
 
@@ -18,23 +19,29 @@ interface IProps {
 }
 
 const MovieCard = ({movie}: IProps) => {
-
+    const {isBlackTheme} = useAppSelector((state) => state.themeReducer);
     const {genres} = useAppSelector(state => state.genreReducer);
 
+
     return (
-        <Tooltip title={movie.overview} placement={"bottom"} style={{color: 'black'}} color={'white'} key={'white'}>
+        <Tooltip title={movie.overview} placement={"bottom"} overlayInnerStyle={{color: isBlackTheme ? 'white' : 'black'}}
+                 color={isBlackTheme ? 'black' : 'white'}
+                 key={'white'}>
             <div style={{cursor: "pointer"}}>
                 <Link to={`/movie/${movie.original_title}`} state={movie.id}>
                     <CustomCard
+                        isBlackTheme={isBlackTheme}
                         hoverable
                         cover={<img alt="poster" src={urls.getImg + movie.poster_path}/>}
                     >
-                        <Meta
+                        <CustomMeta
+                            isBlackTheme={isBlackTheme}
                             title={movie.title}
                             description={`${movie.release_date}`}
                         />
                         <div className={'genre'}>
-                            {genresFilter(genres, movie).map(genre => <GenreBadge key={genre.id} genre={genre}/>)}
+                            {genresFilter(genres, movie).map(genre => <GenreBadge isBlackTheme={isBlackTheme}
+                                                                                  key={genre.id} genre={genre}/>)}
                         </div>
                         <Rate defaultValue={movie.vote_average / 2}/>
                         <div className={"imdb"}>
@@ -48,22 +55,17 @@ const MovieCard = ({movie}: IProps) => {
     );
 };
 
-const CustomCard = styled(Card)`
+const CustomMeta = styled(Meta)<{ isBlackTheme: boolean }>`
+  & div {
+    color: ${({isBlackTheme}) => (isBlackTheme ? "white" : "black")};
+  }
+`;
+
+const CustomCard = styled(Card)<{ isBlackTheme: boolean }>`
+  background: ${({isBlackTheme}) => (isBlackTheme ? "black" : "white")};
   position: relative;
   width: 240px;
   height: 600px;
-
-  p {
-    display: none;
-    position: absolute;
-    bottom: 0;
-  }
-
-  &:hover {
-    p {
-      display: block;
-    }
-  }
 
   .genre {
     display: flex;
@@ -71,12 +73,13 @@ const CustomCard = styled(Card)`
     gap: 5px;
     margin-top: 5px;
   }
-  
+
   .imdb {
     display: flex;
     align-items: center;
     gap: 10px;
-  }
-`
 
+    color: ${({isBlackTheme}) => (isBlackTheme ? "white" : "black")};
+  }
+`;
 export {MovieCard};

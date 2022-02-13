@@ -1,3 +1,12 @@
 .ant-tooltip-inner {
     color: black;
 }
+
+.slick-prev:before, .slick-next:before {
+    color: lightgray;
+    font-size: 36px;
+}
+
+.slick-prev {
+    left: -53px;
+}

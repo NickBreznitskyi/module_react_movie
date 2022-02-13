@@ -8,12 +8,16 @@ import {InputSearch} from "./InputSearch";
 // @ts-ignore
 import logo from "../../resources/images/logo.png";
 import styled from "styled-components";
+import {useAppDispatch, useAppSelector} from "../../hooks";
+import {setTheme} from "../../store/slices/theme.slice";
 
 const {Header} = Layout;
 
 const HeaderApp: FC = () => {
 
     const [onClicked, setOnClicked] = useState(false);
+    const {isBlackTheme} = useAppSelector((state) => state.themeReducer);
+    const dispatch = useAppDispatch();
 
     const click = () => {
         if (!onClicked) {
@@ -24,7 +28,7 @@ const HeaderApp: FC = () => {
     }
 
     const onClick = () => {
-
+        dispatch(setTheme(!isBlackTheme));
     }
 
     return (
@@ -41,7 +45,7 @@ const HeaderApp: FC = () => {
                 <div className={"header__item"}>
                     {onClicked && <InputSearch/>}
                     <SearchOutlined className={"searchOutlined"} onClick={() => click()}/>
-                    <Switch defaultChecked onClick={onClick}/>
+                    <Switch onClick={onClick}/>
                     <Avatar size='large' icon={<UserOutlined/>}/>
                 </div>
             </CustomHeader>
@@ -53,13 +57,13 @@ const CustomHeader = styled(Header)`
   position: fixed;
   z-index: 999999;
   width: 100%;
-  
+
   .header__item {
     display: flex;
     align-items: center;
     gap: 50px;
   }
-  
+
   .searchOutlined {
     font-size: 20px;
     color: white;

@@ -1,11 +1,12 @@
 import React, {useEffect, useMemo} from 'react';
 import Slider from "react-slick";
+import styled from "styled-components";
 
 import {useAppDispatch, useAppSelector} from "../../../hooks";
 import {setGenresThunk} from "../../../store";
 import {MovieTypeEnum} from "../../../enums";
-import {MovieCard} from "../../MovieCard";
-import {handleApiCall} from '../../../helpers/handleApiCall';
+import {handleApiCall} from '../../../helpers';
+import { MovieCard } from '../../MovieCard/MovieCard';
 
 interface IProps {
     title: MovieTypeEnum
@@ -14,11 +15,12 @@ interface IProps {
 const settings = {
     speed: 500,
     slidesToShow: 5,
-    slidesToScroll: 5
+    slidesToScroll: 5,
 };
 
 const MovieListCarousel = ({title}: IProps) => {
     const dispatch = useAppDispatch();
+    const {isBlackTheme} = useAppSelector(state => state.themeReducer);
     const {popularMoviesList, topRatedMoviesList, upcomingMoviesList} = useAppSelector(state => state.movieReducer);
     const page = 1;
 
@@ -61,11 +63,19 @@ const MovieListCarousel = ({title}: IProps) => {
     }, [])
 
     return (
-        <div>
+        <CustomDiv isBlackTheme={isBlackTheme}>
             <h2 style={{fontSize: '26px'}}>{title}</h2>
             {moviesRender}
-        </div>
+        </CustomDiv>
     );
 };
 
+const CustomDiv = styled.h2<{ isBlackTheme: boolean }>`
+  margin-top: 20px;
+
+  h2 {
+    font-size: 26px;
+    color: ${({isBlackTheme}) => (isBlackTheme ? "white" : "black")};
+  }
+`
 export {MovieListCarousel};

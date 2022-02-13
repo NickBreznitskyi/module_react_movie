@@ -1,14 +1,15 @@
 import React, {useEffect} from 'react';
 import {useLocation} from 'react-router-dom';
 import {Pagination} from 'antd';
+import styled from "styled-components";
 
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import {setMovieListByGenreThunk} from "../../store";
 import {MovieCard} from "../MovieCard";
-import styled from "styled-components";
 
 const MovieListByGenre = () => {
     const {movieListByGenre} = useAppSelector(state => state.movieReducer);
+    const {isBlackTheme} = useAppSelector(state => state.themeReducer);
     const dispatch = useAppDispatch();
     const {state}: any = useLocation();
     const {id, name} = state.genre;
@@ -22,7 +23,7 @@ const MovieListByGenre = () => {
         window.scrollTo(0, 520)
     }
     return (
-        <CustomMovieListByGenre>
+        <CustomMovieListByGenre isBlackTheme={isBlackTheme}>
             <h2>Results: {name}</h2>
             <div className={"movieList"}>
                 {movieListByGenre?.results.map(value => <MovieCard key={value.id} movie={value}/>)}
@@ -35,8 +36,12 @@ const MovieListByGenre = () => {
     );
 };
 
-const CustomMovieListByGenre = styled.div`
+const CustomMovieListByGenre = styled.div<{isBlackTheme: boolean}>`
   margin-top: 20px;
+  
+  h2 {
+    color: ${({isBlackTheme}) => (isBlackTheme ? "white" : "black")};
+  }
 
   .movieList {
     display: flex;

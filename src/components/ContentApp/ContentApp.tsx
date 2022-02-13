@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
+import {Outlet} from "react-router-dom";
 
 import {SliderCarousel} from "./SliderCarousel";
-import {Outlet} from "react-router-dom";
 
 const ContentApp: FC = () => {
     return (

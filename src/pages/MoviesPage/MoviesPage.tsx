@@ -1,14 +1,16 @@
 import React, {FC, SetStateAction, useState} from 'react';
 import {Select} from 'antd';
+import styled from "styled-components";
 
 import {MoviesLists} from "../../components";
 import {MovieTypeEnum} from "../../enums";
-import styled from "styled-components";
+import {useAppSelector} from "../../hooks";
 
 const {Option} = Select;
 
 const MoviesPage: FC = () => {
     const [option, setOption] = useState(MovieTypeEnum.POPULAR);
+    const {isBlackTheme} = useAppSelector(state => state.themeReducer);
 
     const handleChange = (value: SetStateAction<any>) => {
         setOption(value)
@@ -16,7 +18,7 @@ const MoviesPage: FC = () => {
 
     return (
         <div>
-            <CustomDiv>
+            <CustomDiv isBlackTheme={isBlackTheme}>
                 <h2>Movies</h2>
                 <Select defaultValue={MovieTypeEnum.POPULAR} className={"select"}
                         onChange={handleChange}>
@@ -37,11 +39,15 @@ const MoviesPage: FC = () => {
     );
 };
 
-const CustomDiv = styled.div`
+const CustomDiv = styled.div<{ isBlackTheme: boolean }>`
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
-  
+
+  h2 {
+    color: ${({isBlackTheme}) => (isBlackTheme ? "white" : "black")};
+  }
+
   .select {
     width: 170px;
     font-size: 20px;

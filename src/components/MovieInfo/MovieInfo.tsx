@@ -3,6 +3,7 @@ import {useLocation} from "react-router-dom";
 import {Image} from "antd";
 import Slider from "react-slick";
 import YouTube from "react-youtube";
+import styled from "styled-components";
 
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import {
@@ -12,16 +13,20 @@ import {
     setMovieVideosThunk
 } from "../../store";
 import {urls} from "../../constants";
-import {ActorCard} from "../ActorCard";
+import {getTrailer} from "../../helpers";
+import {ActorCard} from "../ActorCard/ActorCard";
+
 // @ts-ignore
 import imdbIcon from "../../resources/images/imdbIcon.png";
+
 
 const MovieInfo = () => {
     const location = useLocation();
     const dispatch = useAppDispatch();
     const {movieDetails, movieImages, movieVideos, movieCredits} = useAppSelector(state => state.movieReducer);
+    const {isBlackTheme} = useAppSelector(state => state.themeReducer);
     const {state}: any = location;
-    const trailer = movieVideos?.results?.filter(video => video.type === 'Trailer' && video.official)[0];
+    const trailer = getTrailer(movieVideos)
     const directors = movieCredits?.crew?.filter(crew => crew.job === 'Director');
 
     const settings = {
@@ -45,12 +50,13 @@ const MovieInfo = () => {
         dispatch(setMovieCreditsThunk(state))
     }, [state])
     return (
-        <div>
+        <CustomDiv isBlackTheme={isBlackTheme}>
             <h2>{movieDetails?.title}</h2>
             <hr/>
             <div style={{display: "flex"}}>
                 <div style={{width: '30%'}}>
                     <img src={`${urls.getImg}/${movieDetails?.poster_path}`} height={'500px'} alt={"Poster null"}/>
+                    <hr/>
                     <div>
                         <p>Release Date: {movieDetails?.release_date}</p>
                         <hr/>
@@ -101,8 +107,16 @@ const MovieInfo = () => {
                 </div>
             </div>
             <hr/>
-        </div>
+        </CustomDiv>
     );
 };
+
+const CustomDiv = styled.div <{ isBlackTheme: boolean }>`
+  color: ${({isBlackTheme}) => (isBlackTheme ? "white" : "black")};
+
+  h2 {
+    color: ${({isBlackTheme}) => (isBlackTheme ? "white" : "black")};
+  }
+`
 
 export {MovieInfo};

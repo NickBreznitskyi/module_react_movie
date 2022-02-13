@@ -8,7 +8,6 @@ export const theme = {
         backgroundColor: "#212a2e",
         color: '#F7F8F8'
     }
-
 }
 
 
