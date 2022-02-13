@@ -2,14 +2,10 @@ import React, {useEffect, useMemo} from 'react';
 import Slider from "react-slick";
 
 import {useAppDispatch, useAppSelector} from "../../../hooks";
-import {
-    setGenresThunk,
-    setPopularMoviesListThunk,
-    setTopRatedMoviesListThunk,
-    setUpcomingMoviesListThunk
-} from "../../../store";
+import {setGenresThunk} from "../../../store";
 import {MovieTypeEnum} from "../../../enums";
 import {MovieCard} from "../../MovieCard";
+import {handleApiCall} from '../../../helpers/handleApiCall';
 
 interface IProps {
     title: MovieTypeEnum
@@ -56,24 +52,8 @@ const MovieListCarousel = ({title}: IProps) => {
     }, [title, popularMoviesList, topRatedMoviesList, upcomingMoviesList]);
 
     useEffect(() => {
-        const handleApiCall = () => {
-            switch (title) {
-                case MovieTypeEnum.POPULAR: {
-                    dispatch(setPopularMoviesListThunk(page))
-                    return
-                }
-                case MovieTypeEnum.TOPRATED: {
-                    dispatch(setTopRatedMoviesListThunk(page))
-                    return;
-                }
-                case MovieTypeEnum.UPCOMING: {
-                    dispatch(setUpcomingMoviesListThunk(page))
-                    return;
-                }
-            }
-        }
         if (!popularMoviesList?.results.length || !topRatedMoviesList?.results.length || !upcomingMoviesList?.results.length)
-            handleApiCall();
+            handleApiCall(title, dispatch, page);
     }, [title, dispatch])
 
     useEffect(() => {

@@ -7,6 +7,7 @@ import {urls} from "../../../../constants";
 import {GenreBadge} from "../../../GenreBadge/GenreBadge";
 import {useAppDispatch, useAppSelector} from "../../../../hooks";
 import {setGenresThunk} from "../../../../store";
+import { genresFilter } from '../../../../helpers/genresFilter';
 
 interface IProps {
     movie: IMovie
@@ -31,8 +32,7 @@ const FoundMovie = ({movie}: IProps) => {
                         <h3>{movie.title}</h3>
                         <h4>{movie.release_date}</h4>
                         <div className={'genre'}>
-                            {genres?.filter(genre => movie.genre_ids.includes(genre.id))
-                                .map(genre => <GenreBadge key={genre.id} genre={genre}/>)}
+                            {genresFilter(genres,movie).map(genre => <GenreBadge key={genre.id} genre={genre}/>)}
                         </div>
                     </div>
                 </CustomFoundMovieCard>

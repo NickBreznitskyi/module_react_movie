@@ -9,6 +9,7 @@ import {useAppSelector} from "../../hooks";
 import {GenreBadge} from "../GenreBadge/GenreBadge";
 // @ts-ignore
 import imdbIcon from "../../resources/images/imdbIcon.png";
+import { genresFilter } from '../../helpers/genresFilter';
 
 const {Meta} = Card;
 
@@ -33,8 +34,7 @@ const MovieCard = ({movie}: IProps) => {
                             description={`${movie.release_date}`}
                         />
                         <div className={'genre'}>
-                            {genres?.filter(genre => movie.genre_ids.includes(genre.id))
-                                .map(genre => <GenreBadge key={genre.id} genre={genre}/>)}
+                            {genresFilter(genres, movie).map(genre => <GenreBadge key={genre.id} genre={genre}/>)}
                         </div>
                         <Rate defaultValue={movie.vote_average / 2}/>
                         <div className={"imdb"}>
