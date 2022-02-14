@@ -5,7 +5,8 @@ import styled from "styled-components";
 
 import {useAppDispatch, useAppSelector} from "../../../hooks";
 import {setSearchMovieListThunk} from "../../../store";
-import {FoundMovie} from "./FoundMovie";
+import {FoundMovie} from "./FoundMovie/FoundMovie";
+
 
 function useOutsideAlerter(ref: any, setInputValue: any): any {
     useEffect(() => {

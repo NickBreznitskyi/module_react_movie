@@ -2,9 +2,9 @@ import React, {FC} from 'react';
 import {Layout} from "antd";
 import styled from "styled-components";
 
-import {ContentApp} from "../ContentApp";
-import {HeaderApp} from "../HeaderApp";
 import {useAppSelector} from "../../hooks";
+import {HeaderApp} from "../HeaderApp/HeaderApp";
+import {ContentApp} from "../ContentApp/ContentApp";
 
 const {Footer, Content} = Layout;
 

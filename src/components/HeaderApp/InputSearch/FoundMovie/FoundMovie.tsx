@@ -4,11 +4,10 @@ import styled from "styled-components";
 
 import {IMovie} from "../../../../interfaces";
 import {urls} from "../../../../constants";
-
 import {useAppDispatch, useAppSelector} from "../../../../hooks";
 import {setGenresThunk} from "../../../../store";
 import {genresFilter} from '../../../../helpers';
-import { GenreBadge } from '../../../GenreBadge/GenreBadge';
+import {GenreBadge} from "../../../GenreBadge/GenreBadge";
 
 //@ts-ignore
 import CameraImg from "../../../../resources/images/camera.png";

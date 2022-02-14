@@ -2,14 +2,16 @@ import React, {FC, useState} from 'react';
 import {Link} from "react-router-dom";
 import {Avatar, Layout, Switch} from "antd";
 import {SearchOutlined, UserOutlined} from "@ant-design/icons";
-
-import {HeaderMenu} from "./HeaderMenu";
-import {InputSearch} from "./InputSearch";
-// @ts-ignore
-import logo from "../../resources/images/logo.png";
 import styled from "styled-components";
+
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import {setTheme} from "../../store/slices/theme.slice";
+import {HeaderMenu} from "./HeaderMenu/HeaderMenu";
+import {InputSearch} from "./InputSearch/InputSearch";
+
+// @ts-ignore
+import logo from "../../resources/images/logo.png";
+
 
 const {Header} = Layout;
 

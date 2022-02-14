@@ -6,7 +6,8 @@ import {useAppDispatch, useAppSelector} from "../../../hooks";
 import {setGenresThunk} from "../../../store";
 import {MovieTypeEnum} from "../../../enums";
 import {handleApiCall} from '../../../helpers';
-import { MovieCard } from '../../MovieCard/MovieCard';
+import {MovieCard} from "../../MovieCard/MovieCard";
+
 
 interface IProps {
     title: MovieTypeEnum

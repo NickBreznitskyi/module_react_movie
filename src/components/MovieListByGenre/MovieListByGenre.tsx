@@ -5,7 +5,8 @@ import styled from "styled-components";
 
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import {setMovieListByGenreThunk} from "../../store";
-import {MovieCard} from "../MovieCard";
+import {MovieCard} from "../MovieCard/MovieCard";
+
 
 const MovieListByGenre = () => {
     const {movieListByGenre} = useAppSelector(state => state.movieReducer);

@@ -1,10 +1,10 @@
 import React, {FC, useEffect} from 'react';
 import {Carousel} from 'antd';
 
-
 import {useAppDispatch, useAppSelector} from "../../../hooks";
 import {setPopularMoviesListThunk} from "../../../store";
-import {SliderCarouselItem} from "./SliderCarouselItem";
+import {SliderCarouselItem} from "./SliderCarouselItem/SliderCarouselItem";
+
 
 const SliderCarousel: FC = () => {
     const {popularMoviesList} = useAppSelector(state => state.movieReducer);

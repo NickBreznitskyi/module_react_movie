@@ -3,13 +3,13 @@ import {Pagination} from "antd";
 import styled from "styled-components";
 
 import {useAppDispatch, useAppSelector} from "../../hooks";
-import {MovieCard} from "../MovieCard";
 import {
     setPopularMoviesListThunk,
     setTopRatedMoviesListThunk,
     setUpcomingMoviesListThunk
 } from "../../store";
 import {MovieTypeEnum} from "../../enums";
+import {MovieCard} from "../MovieCard/MovieCard";
 
 
 interface IProps {
